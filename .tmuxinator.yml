@@ -1,0 +1,44 @@
+name: humble
+root: ~/ws_anscer
+
+# Change the command to call tmux. This can be used by derivatives/wrappers like byobu.
+tmux_command: tmux -2
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+startup_window: editor
+
+# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+# startup_pane: 1
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+# attach: false
+
+# Enables the display of pane titles. For example "editor" below. Defaults to false.
+# enable_pane_titles: true
+
+# Configures pane title position. Can be: bottom, top, or "off". Note: "off" must be provided in quotes to avoid being interpreted as a boolean false. Defaults to top.
+# pane_title_position: bottom
+
+# Configures pane title format. Defaults to "#{pane_index}: #{pane_title}".
+# Please see the tmux manpage for details, on valid formats.
+# pane_title_format: " [ #T ] "
+
+pre_window: export ROS_DOMAIN_ID=2 && source ~/.zshrc && source install/setup.zsh
+  
+windows:
+  - editor:
+      layout: even-horizontal
+      panes:
+        - editor:
+          - vim src/
+  - monitor:
+      layout: even-horizontal
+      panes:
+        - htop:
+          - htop
+
+  # - foxglove-bridge:
+  #     layout: main-vertical
+  #     panes:
+  #       - foxbridge:
+  #         - ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=8765 send_buffer_limit:=100000000

@@ -1,0 +1,6 @@
+trajectory_reader_node:
+  ros__parameters:
+    use_sim_time: true
+    filepath: "/home/ros/ws_anscer/trajectory.json"
+    base_frame_id: "base_footprint"
+    map_frame_id: "odom"

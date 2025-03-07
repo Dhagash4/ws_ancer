@@ -1,0 +1,31 @@
+name: ws_anscer 
+
+volumes:
+  zshhistory-ws: {}
+
+services:
+  ws_anscer:
+    image: ws_anscer               
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      target: base  
+      args:
+        - USER_UID=1000
+        - USER_GID=1000
+    volumes:
+      - ./src:/home/ros/ws_anscer/src
+      - zshhistory-ws:/cmd
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ~/.Xauthority:/root/.Xauthority
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+    container_name: "ws_anscer"
+    privileged: true
+    user: ros
+    network_mode: "host"
+    tty: true
+    environment:
+      - DISPLAY=$DISPLAY
+    stop_grace_period: 1s
